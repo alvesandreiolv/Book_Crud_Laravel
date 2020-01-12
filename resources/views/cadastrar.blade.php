@@ -35,7 +35,7 @@
 				<label for="description">Descrição completa:</label>
 				<textarea cols="5" rows="5" class="form-control" name="description" placeholder="Faça uma descrição completa do que está sendo cadastrado"></textarea>
 			</div>
-			<button type="submit" class="btn btn-primary">Create</button>
+			<button type="submit" class="btn btn-primary">Cadastrar</button>
 		</form>
 
 	</div>

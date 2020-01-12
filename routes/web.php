@@ -15,8 +15,10 @@ Route::get('/', 'WelcomeController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 
-Route::get('/cadastrar', 'CadastroController@cadastrar');
+Route::get('/livros/cadastrar', 'LivrosController@cadastrar');
 
-Route::get('/vercadastros', 'CadastroController@verCadastros');
+Route::get('/livros', 'LivrosController@ver');
+
+Route::get('/livros/ver', 'LivrosController@ver');

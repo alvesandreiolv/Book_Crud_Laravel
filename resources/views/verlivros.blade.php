@@ -5,9 +5,9 @@
 <div class="card" style="border-top:0px;">
 	<div class="card-body">
 
-		<label for="tabela"><h5>Todos os itens cadastrados:</h5></label>
+		<label for="tabela"><h5>Todos os livros cadastrados:</h5></label>
 
-		<table name="tabela" class="table table-sm">
+		<table name="tabela" class="table table-sm" style="margin-bottom: 0px;">
 			<thead>
 				<tr>
 					<th scope="col">#</th>
