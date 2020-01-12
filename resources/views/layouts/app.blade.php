@@ -78,6 +78,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
 
+                    @auth
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
                             <a class="nav-link <?php if (Route::current()->uri() === 'home') { echo 'active'; } ?>" href="home">Início</a>
@@ -89,16 +90,12 @@
                             <a class="nav-link <?php if (Route::current()->uri() === 'vercadastros') { echo 'active'; } ?>" href="vercadastros">Ver cadastrados</a>
                         </li>
                     </ul>
+                    @endauth
 
-                    <div class="card" style="border-top:0px;">
 
-                        <div class="card-body">
+                    @yield('content')
 
-                            @yield('content')
 
-                        </div>
-
-                    </div>
                 </div>
             </div>
         </div>

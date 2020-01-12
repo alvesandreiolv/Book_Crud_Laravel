@@ -17,6 +17,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/cadastrar', 'CadastrarController@index');
+Route::get('/cadastrar', 'CadastroController@cadastrar');
 
-Route::get('/vercadastros', 'CadastrarController@index');
+Route::get('/vercadastros', 'CadastroController@verCadastros');
