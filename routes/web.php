@@ -17,7 +17,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/livros/cadastrar', 'LivrosController@cadastrar');
+Route::get('/livros/cadastrar', 'LivrosController@mostrarFormulario');
+
+Route::post('/livros/cadastrar', 'LivrosController@cadastrar');
 
 Route::get('/livros', 'LivrosController@ver');
 

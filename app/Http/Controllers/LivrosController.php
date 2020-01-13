@@ -3,12 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Objetos;
+use App\Livros;
+use Illuminate\Support\Facades\Auth;
+//use Illuminate\Foundation\Validation;
+//use \Validator;
+//use Illuminate\Support\Facades\Validator;
+
 
 class LivrosController extends Controller
 {
-	public function cadastrar () {
+
+
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
+	public function mostrarFormulario () {
 		return view('cadastrar');
+	}
+
+	public function cadastrar (Request $dados) {
+
+		//return view('cadastrar')->with('mensagemSucesso','Neste momento você iria salvar algo no banco de dados.');
+
+		//um método muito estranho abaixo que só permite rodar a validação nesta variavel primitiva $dados
+		$validatedData = $dados->validate([
+			'titulo' => 'required|unique:livros',
+			'escritor' => 'required',
+			'status' => 'required',
+			'descricao' => 'required',
+		]);
+
+		$dados = $dados->all();
+
+		$livro = new Livros;
+		
+		$livro->titulo = $dados['titulo'];
+		$livro->escritor = $dados['escritor'];
+		$livro->status = $dados['status'];
+		$livro->descricao = $dados['descricao'];
+		$livro->user_id = Auth::id();
+
+		$livro->save();
+
+		return view('cadastrar')->with('mensagemSucesso','O livro "'.$livro->titulo.'" foi registrado com sucesso no banco de dados.');
+
 	}
 
 	public function ver () {

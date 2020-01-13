@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObjetosTable extends Migration
+class RenameLivrosColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateObjetosTable extends Migration
      */
     public function up()
     {
-        Schema::create('objetos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->string('title');
-            $table->string('description');
-            $table->timestamps();
+
+        Schema::table('livros', function(Blueprint $table) {
+           $table->renameColumn('nome', 'titulo');
         });
+
     }
 
     /**
@@ -29,6 +27,6 @@ class CreateObjetosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('objetos');
+        //
     }
 }

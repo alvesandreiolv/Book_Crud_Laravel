@@ -81,13 +81,13 @@
                     @auth
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link <?php if (Route::current()->uri() === 'home') { echo 'active'; } ?>" href="{{ asset('home') }}">Início</a>
+                            <a class="nav-link <?php if (Route::current()->uri() === 'home') { echo 'active'; } ?>" href="{{ url('home') }}">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php if (Route::current()->uri() === 'livros/cadastrar') { echo 'active'; } ?>" href="{{ asset('livros/cadastrar') }}">Cadastrar livros</a>
+                            <a class="nav-link <?php if (Route::current()->uri() === 'livros/cadastrar') { echo 'active'; } ?>" href="{{ url('livros/cadastrar') }}">Cadastrar livros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php if (Route::current()->uri() === 'livros/ver') { echo 'active'; } ?>" href="{{ asset('livros/ver') }}">Ver cadastrados</a>
+                            <a class="nav-link <?php if (Route::current()->uri() === 'livros/ver') { echo 'active'; } ?>" href="{{ url('livros/ver') }}">Ver cadastrados</a>
                         </li>
                     </ul>
                     @endauth
@@ -96,6 +96,7 @@
                     @yield('content')
 
 
+                    
                 </div>
             </div>
         </div>
