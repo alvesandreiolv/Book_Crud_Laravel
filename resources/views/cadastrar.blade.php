@@ -38,8 +38,7 @@
 				<div class="form-group col-md-6">
 					<label for="inputEmail4">Status:</label>
 					<select class="custom-select" name="status" id="inlineFormCustomSelectPref">
-						<option selected>Escolha uma opção</option>
-						<option value="Eu já li">Eu já li</option>
+						<option selected value="Eu já li">Eu já li</option>
 						<option value="Li parcialmente">Li parcialmente</option>
 						<option value="Ainda não li">Ainda não li</option>
 					</select>

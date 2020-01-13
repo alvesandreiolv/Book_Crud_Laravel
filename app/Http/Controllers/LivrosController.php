@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Livros;
 use Illuminate\Support\Facades\Auth;
+use DB;
 //use Illuminate\Foundation\Validation;
 //use \Validator;
 //use Illuminate\Support\Facades\Validator;
@@ -13,7 +14,6 @@ use Illuminate\Support\Facades\Auth;
 class LivrosController extends Controller
 {
 
-
 	public function __construct()
 	{
 		$this->middleware('auth');
@@ -21,6 +21,17 @@ class LivrosController extends Controller
 
 	public function mostrarFormulario () {
 		return view('cadastrar');
+	}
+
+	public function ver () {
+
+		$livro = new Livros;
+		$livro = $livro->all()->sortByDesc('id');
+
+        $livro = DB::table('livros')->orderBy('id', 'desc')->paginate(10);
+
+		return view('verlivros', compact('livro'));
+
 	}
 
 	public function cadastrar (Request $dados) {
@@ -51,9 +62,7 @@ class LivrosController extends Controller
 
 	}
 
-	public function ver () {
-		return view('verlivros');
-	}
+
 
 	public function store(Request $request) {
 

@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/font-awesome-4.7.0/css/font-awesome.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -96,7 +97,7 @@
                     @yield('content')
 
 
-                    
+
                 </div>
             </div>
         </div>
