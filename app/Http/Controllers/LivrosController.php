@@ -9,7 +9,7 @@ use DB;
 //use Illuminate\Foundation\Validation;
 //use \Validator;
 //use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Routing\Redirector;
 
 class LivrosController extends Controller
 {
@@ -27,10 +27,30 @@ class LivrosController extends Controller
 
 		$livro = new Livros;
 		$livro = $livro->all()->sortByDesc('id');
-
-        $livro = DB::table('livros')->orderBy('id', 'desc')->paginate(10);
+		$livro = DB::table('livros')->orderBy('id', 'desc')->whereNull('deleted_at')->paginate(5);
 
 		return view('verlivros', compact('livro'));
+
+	}
+
+	public function apagar ($id) {
+
+		//para soft deletar o id do banco de dados
+		$idmessage = $id;
+		$id = Livros::find($id);
+
+		if (!empty($id)){
+			$id->delete();
+		}
+		
+		//para mostrar as informações na view de verlivros novamente
+		$livro = new Livros;
+		$livro = $livro->all()->sortByDesc('id');
+		$livro = DB::table('livros')->orderBy('id', 'desc')->whereNull('deleted_at')->paginate(5);
+
+		//return view('verlivros', compact('livro'))->with('mensagemDeletadoSucesso','O livro ID #'.$idmessage.' foi deletado com sucesso.');
+
+		return redirect()->route('verlivros')->with('mensagemDeletadoSucesso','O livro ID #'.$idmessage.' foi deletado com sucesso.');
 
 	}
 
@@ -40,7 +60,7 @@ class LivrosController extends Controller
 
 		//um método muito estranho abaixo que só permite rodar a validação nesta variavel primitiva $dados
 		$validatedData = $dados->validate([
-			'titulo' => 'required|unique:livros',
+			'titulo' => 'required|unique:livros,titulo,NULL,id,deleted_at,NULL',
 			'escritor' => 'required',
 			'status' => 'required',
 			'descricao' => 'required',
