@@ -21,7 +21,9 @@ Route::get('/livros/cadastrar', 'LivrosController@mostrarFormulario');
 
 Route::post('/livros/cadastrar', 'LivrosController@cadastrar');
 
-Route::get('/livros/editar/{id}', 'LivrosController@editar');
+Route::get('/livros/editar/{id}', 'LivrosController@vereditar')->name('vereditar');
+
+Route::post('/livros/editar/{id}', 'LivrosController@editar')->name('editar');
 
 Route::get('/livros/apagar/{id}', 'LivrosController@apagar');
 

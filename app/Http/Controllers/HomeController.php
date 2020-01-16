@@ -25,13 +25,13 @@ class HomeController extends Controller
      */
     public function index() {
 
-        $testando1 = Auth::id();
+        $testando1 = '';
 
         $numberx = DB::table('livros')->where('deleted_at', '=', NULL)->count();
         $numbery = DB::table('livros')->where('deleted_at', '=', NULL)->where('user_id', '=', Auth::id())->count();
 
         return view('home')->with('numberx', $numberx)->with('numbery', $numbery)->with('testando1', $testando1);
-        
+
     }
 
 }

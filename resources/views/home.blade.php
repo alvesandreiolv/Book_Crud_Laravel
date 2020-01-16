@@ -20,7 +20,7 @@
         Há <b><?php echo $numberx; ?></b> itens cadastrados no sistema.<br>
         Você já cadastrou <b><?php echo $numbery; ?></b> itens.
 
-        <!--<br><br>Teste: <?php echo $testando1; ?>-->
+        <br><br>Teste: <?php echo $testando1; ?>
 
     </div>
 

@@ -90,13 +90,17 @@
                         <li class="nav-item">
                             <a class="nav-link <?php if (Route::current()->uri() === 'livros/ver') { echo 'active'; } ?>" href="{{ url('livros/ver') }}">Ver cadastrados</a>
                         </li>
+
+                        @if (\Route::current()->getName() == 'vereditar')
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ url('livros/editar/'.$id) }}">Editar</a>
+                        </li>
+                        @endif
+
                     </ul>
                     @endauth
 
-
                     @yield('content')
-
-
 
                 </div>
             </div>
