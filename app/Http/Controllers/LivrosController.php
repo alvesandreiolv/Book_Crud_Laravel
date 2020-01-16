@@ -6,13 +6,9 @@ use Illuminate\Http\Request;
 use App\Livros;
 use Illuminate\Support\Facades\Auth;
 use DB;
-//use Illuminate\Foundation\Validation;
-//use \Validator;
-//use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Validator;
-
 use Session;
 
 class LivrosController extends Controller
@@ -20,21 +16,22 @@ class LivrosController extends Controller
 
 	public function __construct()
 	{
+
 		$this->middleware('auth');
+
 	}
 
 	public function mostrarFormulario () {
 
-		//$maxid1 = 'EAEEEEEE';
-
 		return view('cadastrar')->with('maxid', Livros::max('id')+1);
+
 	}
 
 	public function ver () {
 
 		$livro = new Livros;
 		$livro = $livro->all()->sortByDesc('id');
-		$livro = DB::table('livros')->orderBy('id', 'desc')->whereNull('deleted_at')->paginate(5);
+		$livro = DB::table('livros')->orderBy('id', 'desc')->whereNull('deleted_at')->paginate(10);
 
 		return view('verlivros', compact('livro'));
 
@@ -46,6 +43,11 @@ class LivrosController extends Controller
 		$livro['escritor']=DB::table('livros')->where('id', $id)->value('escritor');
 		$livro['status']=DB::table('livros')->where('id', $id)->value('status');
 		$livro['descricao']=DB::table('livros')->where('id', $id)->value('descricao');
+
+		$livro['idcadastradopor']=DB::table('livros')->where('id', $id)->value('user_id');
+		$livro['cadastradopor']=DB::table('users')->where('id', $livro['idcadastradopor'])->value('name');
+		$livro['cadastradopor'] = implode(" ", array_slice(explode(' ', $livro['cadastradopor']), 0, 2) );
+
 
 		return view('editar')->with('id', $id)->with('livro', $livro);
 
@@ -61,24 +63,14 @@ class LivrosController extends Controller
 			$id->delete();
 		}
 		
-		//para mostrar as informações na view de verlivros novamente
-		$livro = new Livros;
-		$livro = $livro->all()->sortByDesc('id');
-		$livro = DB::table('livros')->orderBy('id', 'desc')->whereNull('deleted_at')->paginate(5);
-
-		//return view('verlivros', compact('livro'))->with('mensagemDeletadoSucesso','O livro ID #'.$idmessage.' foi deletado com sucesso.');
-
 		return redirect()->route('verlivros')->with('mensagemDeletadoSucesso','O livro ID #'.$idmessage.' foi deletado com sucesso.');
 
 	}
 
 	public function cadastrar (Request $dados) {
 
-		//return view('cadastrar')->with('mensagemSucesso','Neste momento você iria salvar algo no banco de dados.');
-
-		//um método muito estranho abaixo que só permite rodar a validação nesta variavel primitiva $dados
 		$validatedData = $dados->validate([
-			//'titulo' => 'required|unique:livros,titulo,NULL,id,deleted_at,NULL',
+
 			'titulo' => 'required|unique:livros,titulo,NULL,id,deleted_at,NULL',
 			'escritor' => 'required',
 			'status' => 'required',
@@ -87,24 +79,11 @@ class LivrosController extends Controller
 
 		$dados = $dados->all();
 
-		/*$livro = new Livros;
-		
-		$livro->titulo = $dados['titulo'];
-		$livro->escritor = $dados['escritor'];
-		$livro->status = $dados['status'];
-		$livro->descricao = $dados['descricao'];
-		$livro->user_id = Auth::id();
+		$dados['user_id']=Auth::id();
 
-		$livro->save();*/
+		Livros::create($dados);
 
-		Livros::save(['user_id' => Auth::id()]);
-
-		Livros::save(['titulo' => $dados['titulo']]);
-		Livros::save(['escritor' => $dados['escritor']]);
-		Livros::save(['status' => $dados['status']]);
-		Livros::save(['descricao' => $dados['descricao']]);
-
-		return view('cadastrar')->with('mensagemSucesso','O livro "'.$livro->titulo.'" foi registrado com sucesso.')->with('maxid', Livros::max('id')+1);
+		return view('cadastrar')->with('mensagemSucesso','O livro "'.$dados['titulo'].'" foi registrado com sucesso.')->with('maxid', Livros::max('id')+1);
 
 	}
 
@@ -130,28 +109,8 @@ class LivrosController extends Controller
 		Livros::where('id', $id)->update(['status' => $dados['status']]);
 		Livros::where('id', $id)->update(['descricao' => $dados['descricao']]);
 
-		return back()->with('mensagemSucesso', $dados['titulo'].' '.$id);
+		return back()->with('mensagemSucesso', 'O livro "'.$dados['titulo'].'" foi atualizado com sucesso.');
 
-	}
-
-	public function store(Request $request) {
-
-		/*
-		
-		//vai instanciar o 
-		$Objetos = new Objetos();
-		
-		//para validar abaixo
-		$data = $this->validate($request, [
-			'description'=>'required',
-			'title'=> 'required'
-		]);
-		
-		//tudo isso que foi feito acima serve apenas para colocar as informações corretas dentro da função pública saveObjetos que pertence ao modelo Objetos
-		$Objetos->saveObjetos($data);
-		*/
-
-		return redirect('objetos/cadastrar')->with('success', 'New support ticket has been created! Wait sometime to get resolved');
 	}
 
 }

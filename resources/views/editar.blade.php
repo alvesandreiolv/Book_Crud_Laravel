@@ -26,7 +26,7 @@
 
 				@csrf
 
-				<label for="title">ID: #{{$id}}</label><br>
+				<label>Livro ID #{{$id}} cadastrado por {{$livro['cadastradopor']}}.</label><br>
 
 				<label for="titulo">Nome do livro:</label>
 				<input type="text" class="form-control" name="titulo"/ placeholder="Insira o nome do livro" value="{{$livro['nome']}}">
@@ -54,7 +54,10 @@
 				<label for="descricao">Descrição do livro:</label>
 				<textarea cols="5" rows="5" class="form-control" name="descricao" placeholder="Descreva sobre o livro que você está cadastrando" >{{$livro['descricao']}}</textarea>
 			</div>
-			<button type="submit" class="btn btn-primary">Salvar informações</button>
+			<button type="submit" class="btn btn-primary">Atualizar informações</button>
+
+			<a class="btn btn-danger" href="{{ url('livros/apagar/'.$id) }}" onclick="return confirm('Tem certeza de que deseja apagar o livro &quot;{{ $livro['nome'] }}&quot;?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
 		</form>
 
 	</div>

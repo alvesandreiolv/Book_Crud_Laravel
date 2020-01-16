@@ -18,9 +18,7 @@
         Olá, bem-vindo ao sistema.<br><br>
 
         Há <b><?php echo $numberx; ?></b> itens cadastrados no sistema.<br>
-        Você já cadastrou <b><?php echo $numbery; ?></b> itens.
-
-        <br><br>Teste: <?php echo $testando1; ?>
+        Você cadastrou <b><?php echo $numbery; ?></b> itens.
 
     </div>
 

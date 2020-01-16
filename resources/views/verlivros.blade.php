@@ -34,8 +34,9 @@
 					<td>{{$livros->escritor}}</td>
 					<td>{{$livros->status}}</td>
 					<td>
-						<a class="btn btn-primary btn-sm mr-1" href="{{ url('livros/editar/'.$livros->id) }}" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
-							<a class="btn btn-danger btn-sm" href="{{ url('livros/apagar/'.$livros->id) }}" onclick="return confirm('Tem certeza de que deseja deletar o livro &quot;{{$livros->titulo}}&quot;?');"><i class="fa fa-trash" aria-hidden="true"></i></button>
+						<a class="btn btn-primary btn-sm  " href="{{ url('livros/editar/'.$livros->id) }}" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+							<a class="btn btn-danger btn-sm" href="{{ url('livros/apagar/'.$livros->id) }}" onclick="return confirm('Tem certeza de que deseja apagar o livro &quot;{{$livros->titulo}}&quot;?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
 							</td>
 						</tr>
 						@endforeach

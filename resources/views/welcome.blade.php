@@ -84,9 +84,9 @@
     </nav>
 
     <main role="main" class="container">
-      <h1 class="mt-5">Sistema de cadastro simples com Laravel 6</h1>
-      <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt; .container</code>.</p>
-      <p>Back to <a href="../sticky-footer/">the default sticky footer</a> minus the navbar.</p>
+      <h1 class="mt-5">Sistema de cadastro de livros</h1>
+      <p class="lead">Cadastre-se para ter acesso ao painel do sistema. Assim que você estiver logado, poderá cadastrar livros e registrar quais livros você já leu, ou pretende ler no futuro.</p>
+      <p>Este sistema foi desenvolvido por Neyelson Alves.<br>Entre em contato comigo através do endereço neyelson@gmail.com</p>
   </main>
 
 </div>
