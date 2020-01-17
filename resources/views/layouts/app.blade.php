@@ -10,7 +10,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script src="{{ asset('public/jquery/jquery.js') }}"></script>
     <script src="{{ asset('public/js/app.js') }}" defer></script>
+    <script src="{{ asset('public/personal/personal.js') }}" defer></script>   
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -88,7 +90,7 @@
                             <a class="nav-link <?php if (Route::current()->uri() === 'livros/cadastrar') { echo 'active'; } ?>" href="{{ url('livros/cadastrar') }}">Cadastrar livros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php if (Route::current()->uri() === 'livros/ver') { echo 'active'; } ?>" href="{{ url('livros/ver') }}">Ver cadastrados</a>
+                            <a class="nav-link <?php if ((Route::current()->uri() === 'livros/ver') || (Route::current()->uri() === 'livros/pesquisar') || (Route::current()->uri() === 'livros')) { echo 'active'; } ?>" href="{{ url('livros/ver') }}">Ver cadastrados</a>
                         </li>
 
                         @if (\Route::current()->getName() == 'vereditar')

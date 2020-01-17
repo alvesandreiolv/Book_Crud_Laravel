@@ -23,47 +23,74 @@ class LivrosController extends Controller
 
 	public function mostrarFormulario () {
 
-		return view('cadastrar')->with('maxid', Livros::max('id')+1);
+		return view('cadastrar')->with('maxid', DB::table('livros')->max('id')+1);
 
 	}
 
 	public function ver () {
 
-		$livro = new Livros;
-		$livro = $livro->all()->sortByDesc('id');
 		$livro = DB::table('livros')->orderBy('id', 'desc')->whereNull('deleted_at')->paginate(10);
 
 		return view('verlivros', compact('livro'));
 
 	}
 
+	public function pesquisar () {
+
+		$por = $_GET["por"];
+		$input = $_GET["input"];
+
+		if ( ($por !== 'id') && ($por !== 'titulo') && ($por !== 'escritor') && ($por !== 'status') ) {
+			$por = 'titulo';
+		}
+
+		$livro = DB::table('livros')->orderBy('id', 'desc')->whereNull('deleted_at')->where($por, 'like', '%'.$input.'%')->paginate(10);
+
+		return view('verlivros', compact('livro'))->with('resultadospor', $por)->with('inputvalor', $input);
+
+	}
+
 	public function vereditar ($id) {
 
-		$livro['nome']=DB::table('livros')->where('id', $id)->value('titulo');
-		$livro['escritor']=DB::table('livros')->where('id', $id)->value('escritor');
-		$livro['status']=DB::table('livros')->where('id', $id)->value('status');
-		$livro['descricao']=DB::table('livros')->where('id', $id)->value('descricao');
+		$checker=DB::table('livros')->where('id', $id)->value('deleted_at'); //esse precisa ser nulo para passar
+		$idchecker=DB::table('livros')->where('id', $id)->value('id');  //esse não pode ser nulo para passar
 
-		$livro['idcadastradopor']=DB::table('livros')->where('id', $id)->value('user_id');
-		$livro['cadastradopor']=DB::table('users')->where('id', $livro['idcadastradopor'])->value('name');
-		$livro['cadastradopor'] = implode(" ", array_slice(explode(' ', $livro['cadastradopor']), 0, 2) );
+		if ( (empty($checker)) && (!empty($idchecker)) ) {
 
+			$livro['nome']=DB::table('livros')->where('id', $id)->value('titulo');
+			$livro['escritor']=DB::table('livros')->where('id', $id)->value('escritor');
+			$livro['status']=DB::table('livros')->where('id', $id)->value('status');
+			$livro['descricao']=DB::table('livros')->where('id', $id)->value('descricao');
 
-		return view('editar')->with('id', $id)->with('livro', $livro);
+			$livro['idcadastradopor']=DB::table('livros')->where('id', $id)->value('user_id');
+			$livro['cadastradopor']=DB::table('users')->where('id', $livro['idcadastradopor'])->value('name');
+			$livro['cadastradopor'] = implode(" ", array_slice(explode(' ', $livro['cadastradopor']), 0, 2) );
+
+			return view('editar')->with('id', $id)->with('livro', $livro);
+
+		} else {
+
+			return redirect()->route('home');
+
+		}
 
 	}
 
 	public function apagar ($id) {
 
-		//para soft deletar o id do banco de dados
+		//já está deletando soft, pois foi configurado para isso no seu model
 		$idmessage = $id;
+
 		$id = Livros::find($id);
 
 		if (!empty($id)){
 			$id->delete();
+			return redirect()->route('verlivros')->with('mensagemDeletadoSucesso','O livro ID #'.$idmessage.' foi deletado com sucesso.');
+		} else {
+			return redirect()->route('verlivros')->with('mensagemDeletadoErro','Houve um erro ao realizar tentativa de deletar o livro ID #'.$idmessage);
 		}
 		
-		return redirect()->route('verlivros')->with('mensagemDeletadoSucesso','O livro ID #'.$idmessage.' foi deletado com sucesso.');
+		
 
 	}
 

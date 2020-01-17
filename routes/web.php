@@ -15,7 +15,11 @@ Route::get('/', 'WelcomeController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/livros', 'LivrosController@ver');
+
+Route::get('/livros/pesquisar', 'LivrosController@pesquisar');
 
 Route::get('/livros/cadastrar', 'LivrosController@mostrarFormulario');
 
@@ -27,6 +31,6 @@ Route::post('/livros/editar/{id}', 'LivrosController@editar')->name('editar');
 
 Route::get('/livros/apagar/{id}', 'LivrosController@apagar');
 
-Route::get('/livros', 'LivrosController@ver');
+
 
 Route::get('/livros/ver', 'LivrosController@ver')->name('verlivros');

@@ -85,7 +85,7 @@
 
     <main role="main" class="container">
       <h1 class="mt-5">Sistema de cadastro de livros</h1>
-      <p class="lead">Cadastre-se para ter acesso ao painel do sistema. Assim que você estiver logado, poderá cadastrar livros e registrar quais livros você já leu, ou pretende ler no futuro.</p>
+      <p class="lead">Cadastre-se para ter acesso ao painel do sistema. Assim que você estiver logado, poderá cadastrar os livros que você já leu, ou pretende ler no futuro.</p>
       <p>Este sistema foi desenvolvido por Neyelson Alves.<br>Entre em contato comigo através do endereço neyelson@gmail.com</p>
   </main>
 
